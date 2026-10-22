@@ -187,7 +187,6 @@ const PORTFOLIO_CONFIG = {
             }
         }
     ],
-    communityLinks: {},
     // Each track uses { src, title, artist, cover, dominantColor }; tracks enables playlist controls.
     music: {
         src: "",
@@ -323,7 +322,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
+                    const element = entry.target;
+                    const siblings = selectAll(":scope > .reveal", element.parentElement);
+                    const delay = Math.min(Math.max(siblings.indexOf(element), 0) * 75, 300);
+                    element.style.setProperty("--reveal-delay", `${delay}ms`);
+                    element.classList.add("is-visible");
+                    window.setTimeout(() => element.style.removeProperty("--reveal-delay"), delay + 800);
                     observer.unobserve(entry.target);
                 }
             });
@@ -625,24 +629,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.target === caseStudyDialog) caseStudyDialog.close();
     });
 
-    selectAll("[data-community-link]").forEach((link) => {
-        const url = PORTFOLIO_CONFIG.communityLinks[link.dataset.communityLink];
-        if (!url) return;
-
-        try {
-            const parsedUrl = new URL(url);
-            if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
-                console.error(`The configured ${link.dataset.communityLink} URL must use HTTP or HTTPS.`);
-                return;
-            }
-
-            link.href = parsedUrl.href;
-            link.hidden = false;
-        } catch (error) {
-            console.error(`The configured ${link.dataset.communityLink} URL is invalid.`, error);
-        }
-    });
-
     const carousel = select("#project-carousel");
     const carouselButtons = selectAll("[data-carousel]");
     const progress = select("#carousel-progress");
@@ -743,6 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const volume = select("#music-volume");
     const musicStatus = select("#music-status");
     const musicTrack = select("#music-track");
+    const musicCover = select("#music-cover");
     const artworkLayers = [select("#music-artwork-a"), select("#music-artwork-b")].filter(Boolean);
     let activeArtworkLayer = -1;
     let artworkRequest = 0;
@@ -823,6 +810,39 @@ document.addEventListener("DOMContentLoaded", () => {
             dominantColor: typeof track.dominantColor === "string" ? track.dominantColor.trim() : ""
         }));
         let currentTrackIndex = 0;
+        const favicon = select('link[rel="icon"]');
+
+        const updateFavicon = (track, index) => {
+            if (!favicon || !track.cover) return;
+
+            const image = new Image();
+            image.onload = () => {
+                if (index !== currentTrackIndex || audio.paused) return;
+                try {
+                    const canvas = document.createElement("canvas");
+                    canvas.width = 64;
+                    canvas.height = 64;
+                    const context = canvas.getContext("2d");
+                    if (!context) return;
+
+                    context.drawImage(image, 0, 0, 64, 64);
+                    context.fillStyle = "rgba(12, 10, 28, .88)";
+                    context.beginPath();
+                    context.arc(51, 51, 12, 0, Math.PI * 2);
+                    context.fill();
+                    context.fillStyle = "#e8e4ff";
+                    context.font = "bold 13px sans-serif";
+                    context.textAlign = "center";
+                    context.textBaseline = "middle";
+                    context.fillText(String(index + 1), 51, 51);
+                    favicon.type = "image/png";
+                    favicon.href = canvas.toDataURL("image/png");
+                } catch (error) {
+                    console.warn(`Unable to create a favicon for ${track.title}.`, error);
+                }
+            };
+            image.src = track.cover;
+        };
 
         const displayTrack = (track) => {
             musicTrack.textContent = track.artist ? `${track.title} · ${track.artist}` : track.title;
@@ -836,6 +856,10 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 await audio.play();
             } catch (error) {
+                if (error.name === "NotAllowedError") {
+                    musicStatus.textContent = "CLICK PLAY TO START";
+                    return;
+                }
                 musicStatus.textContent = "PLAYBACK UNAVAILABLE";
                 console.error("Unable to play the configured audio source.", error);
             }
@@ -848,6 +872,21 @@ document.addEventListener("DOMContentLoaded", () => {
             audio.src = track.src;
             audio.load();
             displayTrack(track);
+            if (musicCover) {
+                musicCover.classList.remove("is-playing");
+                musicCover.hidden = !track.cover;
+                musicCover.alt = track.cover ? `${track.title} album cover` : "";
+                if (track.cover) {
+                    musicCover.onerror = () => {
+                        musicCover.hidden = true;
+                        console.error(`The configured album artwork for ${track.title} could not be loaded.`);
+                    };
+                    musicCover.src = track.cover;
+                } else {
+                    musicCover.removeAttribute("src");
+                    musicCover.onerror = null;
+                }
+            }
             musicStatus.textContent = shouldPlay ? "LOADING TRACK" : "READY TO PLAY";
             updateTrackArtwork(track);
             preloadArtwork(trackOptions[(currentTrackIndex + 1) % trackOptions.length].cover);
@@ -895,10 +934,13 @@ document.addEventListener("DOMContentLoaded", () => {
             musicToggle.setAttribute("aria-label", "Pause music");
             musicToggle.innerHTML = '<span class="pause-icon" aria-hidden="true">Ⅱ</span>';
             musicStatus.textContent = "NOW PLAYING";
+            musicCover?.classList.add("is-playing");
+            updateFavicon(trackOptions[currentTrackIndex], currentTrackIndex);
         });
         audio.addEventListener("pause", () => {
             musicToggle.setAttribute("aria-label", "Play music");
             musicToggle.innerHTML = '<span class="play-icon" aria-hidden="true">▶</span>';
+            musicCover?.classList.remove("is-playing");
             if (!audio.ended) musicStatus.textContent = "PAUSED";
         });
         audio.addEventListener("ended", () => {
@@ -909,7 +951,7 @@ document.addEventListener("DOMContentLoaded", () => {
             musicStatus.textContent = "AUDIO UNAVAILABLE";
             console.error("The configured audio file could not be loaded.");
         });
-        setCurrentTrack(0);
+        setCurrentTrack(0, true);
     }
 
     const youtubePlaylistId = typeof PORTFOLIO_CONFIG.music.youtubePlaylistId === "string"
