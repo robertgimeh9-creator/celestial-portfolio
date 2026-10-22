@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050510">
+  <meta name="description" content="Robbie — developer, tester, and community manager. Explore the Celestial Moon portfolio.">
+  <title>Robbie — Celestial Moon Portfolio</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Robbie — Celestial Moon Portfolio">
+  <meta property="og:description" content="Explore Robbie's work across Roblox development, Discord bots, QA testing, community leadership, UI, and VFX.">
+  <meta property="og:image" content="public/images/social-preview.jpg">
+  <meta property="og:image:alt" content="Robbie — Developer, Tester, Community Manager, with dark fantasy artwork.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Robbie — Celestial Moon Portfolio">
+  <meta name="twitter:description" content="Developer · Tester · Community Manager">
+  <meta name="twitter:image" content="public/images/social-preview.jpg">
+  <link rel="icon" type="image/svg+xml" href="public/images/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="cosmos" aria-hidden="true">
+    <div class="cosmos__artwork" id="music-artwork">
+      <div class="cosmos__artwork-layer" id="music-artwork-a"></div>
+      <div class="cosmos__artwork-layer" id="music-artwork-b"></div>
+    </div>
+    <div class="cosmos__nebula"></div>
+    <div class="cosmos__moonlight"></div>
+    <div class="stars" id="stars"></div>
+    <div class="cosmic-dust" id="cosmic-dust"></div>
+    <div class="shooting-star shooting-star--one"></div>
+    <div class="shooting-star shooting-star--two"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="navbar glass-panel">
+      <a class="brand" href="#home" aria-label="Robbie home">
+        <img class="brand__avatar" src="public/images/moon-avatar.jpg" alt="">
+        <span class="brand__identity">
+          <span class="brand__name">ROBBIE</span>
+          <span class="brand__role">Developer · Tester · Community Manager</span>
+        </span>
+        <span class="brand__badge">SERVER MGT &amp; DEV</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span><span></span>
+      </button>
+
+      <nav class="navigation" id="primary-navigation" aria-label="Primary navigation">
+        <a class="navigation__link is-active" href="#home">Home</a>
+        <a class="navigation__link" href="#showcase">Work</a>
+        <a class="navigation__link" href="#projects">Projects</a>
+        <a class="navigation__link" href="#profile">Profile</a>
+        <a class="navigation__link" href="#tester">Tester</a>
+        <a class="navigation__link" href="#moderation">Moderator</a>
+        <a class="navigation__link" href="#bots">Bots</a>
+        <a class="navigation__link" href="#websites">Websites</a>
+        <a class="navigation__link" href="#about">About</a>
+      </nav>
+
+      <div class="music-player" aria-label="Music player">
+        <button class="music-player__toggle" id="music-toggle" type="button" aria-label="Play music" disabled>
+          <span class="play-icon" aria-hidden="true">▶</span>
+        </button>
+        <button class="music-player__skip" id="music-previous" type="button" aria-label="Previous track" hidden disabled>‹</button>
+        <div class="music-player__info">
+          <span class="music-player__eyebrow" id="music-status">AUDIO NOT SET</span>
+          <span class="music-player__track" id="music-track">Configure a local track</span>
+        </div>
+        <button class="music-player__skip" id="music-next" type="button" aria-label="Next track" hidden disabled>›</button>
+        <select class="music-player__playlist" id="music-playlist" aria-label="Select a track" hidden disabled></select>
+        <label class="volume-control" for="music-volume" aria-label="Music volume">
+          <span aria-hidden="true">♪</span>
+          <input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.55" disabled>
+        </label>
+        <audio id="music-audio" preload="none"></audio>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="youtube-player-dialog" id="youtube-player-dialog" aria-labelledby="youtube-player-title">
+    <div class="youtube-player-dialog__header">
+      <div>
+        <p class="eyebrow">CELESTIAL MOON / MUSIC</p>
+        <h2 id="youtube-player-title">YouTube playlist</h2>
+      </div>
+      <button class="youtube-player-dialog__close" id="youtube-player-close" type="button" aria-label="Close music player">×</button>
+    </div>
+    <div class="youtube-player-dialog__frame" id="youtube-player-frame"></div>
+    <p class="youtube-player-dialog__note">Playback and track selection are provided by YouTube.</p>
+  </dialog>
+
+  <dialog class="case-study-dialog" id="case-study-dialog" aria-labelledby="case-study-title">
+    <header class="case-study-dialog__header">
+      <div>
+        <p class="eyebrow" id="case-study-status">PROJECT ARCHIVE</p>
+        <h2 id="case-study-title">Project case study</h2>
+        <p class="case-study-dialog__role" id="case-study-role"></p>
+      </div>
+      <button class="youtube-player-dialog__close" id="case-study-close" type="button" aria-label="Close case study">×</button>
+    </header>
+    <div class="case-study-dialog__content" id="case-study-content"></div>
+  </dialog>
+
+  <main>
+    <section class="hero section-shell" id="home" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <p class="eyebrow"><span class="eyebrow__line"></span> CELESTIAL MOON PORTFOLIO</p>
+        <h1 id="hero-title">Robbie<br><span class="text-gradient">Developer · Tester</span></h1>
+        <p class="hero__subtitle">Developer <span>•</span> Tester <span>•</span> Community Manager</p>
+        <p class="hero__description">Explore my work across Roblox development, Discord bots, QA testing, community leadership, and creative UI and VFX.</p>
+        <a class="text-link" href="#work">Explore the portfolio <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="hero__visual" aria-label="Moon glowing over a distant cosmic horizon" role="img">
+        <div class="orbit orbit--outer"></div>
+        <div class="orbit orbit--inner"></div>
+        <div class="moon-visual">
+          <span class="moon-visual__crater moon-visual__crater--one"></span>
+          <span class="moon-visual__crater moon-visual__crater--two"></span>
+          <span class="moon-visual__crater moon-visual__crater--three"></span>
+        </div>
+        <span class="hero__spark hero__spark--one">✦</span>
+        <span class="hero__spark hero__spark--two">✧</span>
+        <span class="hero__coordinates">LUNAR STATION&nbsp; / &nbsp;01</span>
+      </div>
+      <a class="scroll-cue" href="#work"><span></span> SCROLL TO EXPLORE</a>
+    </section>
+
+    <section class="stats section-shell" aria-labelledby="core-experience-title">
+      <h2 class="stats__heading eyebrow" id="core-experience-title">CORE EXPERIENCE</h2>
+      <article class="stat-card glass-panel reveal">
+        <span class="stat-card__number">Development</span>
+        <span class="stat-card__label">Roblox · Discord bots</span>
+      </article>
+      <article class="stat-card glass-panel reveal">
+        <span class="stat-card__number">Testing</span>
+        <span class="stat-card__label">QA · Bug reporting</span>
+      </article>
+      <article class="stat-card glass-panel reveal">
+        <span class="stat-card__number">Leadership</span>
+        <span class="stat-card__label">Staff · Communities</span>
+      </article>
+      <article class="stat-card glass-panel reveal">
+        <span class="stat-card__number">Creative</span>
+        <span class="stat-card__label">UI · VFX · Design</span>
+      </article>
+    </section>
+
+    <section class="featured section-shell reveal" id="work" aria-labelledby="featured-title">
+      <div class="featured__glow" aria-hidden="true"></div>
+      <div class="featured__copy">
+        <div class="featured__meta">
+          <span class="status-pill"><span class="status-pill__dot"></span> IN DEVELOPMENT</span>
+          <span class="eyebrow">CUSTOM INFRASTRUCTURE</span>
+        </div>
+        <h2 id="featured-title">Building a Separate<br><span class="text-gradient">All-In-One Bot</span></h2>
+        <p>Developing a separate Discord bot for community automation, configurable workflows, and advanced server management.</p>
+        <div class="button-row">
+          <a class="button button--primary" href="#bots">EXPLORE SYSTEMS <span aria-hidden="true">↗</span></a>
+          <a class="button button--quiet" id="contact-cta" href="#about">EMAIL ME <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="featured__art" aria-hidden="true">
+        <div class="system-orbit system-orbit--one"><span>✦</span></div>
+        <div class="system-orbit system-orbit--two"><span>⌘</span></div>
+        <div class="system-core"><span>MOON</span><b>∞</b></div>
+        <span class="system-label system-label--one">AUTOMATION</span>
+        <span class="system-label system-label--two">COMMUNITY</span>
+        <span class="system-label system-label--three">SYSTEMS</span>
+      </div>
+    </section>
+
+    <section class="portfolio-section section-shell" id="tester" aria-labelledby="tester-title">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__line"></span> FIELD NOTES / 01</p>
+          <h2 id="tester-title">Projects tested <span class="text-gradient">&amp; moderated.</span></h2>
+          <p class="section-intro">Roblox and Discord communities where I have contributed to game testing, moderation, staff management, development, and project leadership.</p>
+        </div>
+        <div class="carousel-controls" aria-label="Project carousel controls">
+          <button class="carousel-arrow" type="button" data-carousel="previous" aria-label="Previous projects">←</button>
+          <button class="carousel-arrow" type="button" data-carousel="next" aria-label="Next projects">→</button>
+        </div>
+      </div>
+      <div class="project-carousel" id="project-carousel" tabindex="0" aria-label="Projects tested and moderated">
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--violet">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>A</span><small>COMMUNITY</small></div>
+            <span class="role-pill">TESTER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Anime Journey</h3><span class="activity-pill">GAME TESTING</span></div>
+            <p>Game testing.</p>
+            <a class="project-card__link" href="https://discord.gg/JF5xzf5xs" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--blue">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>A</span><small>COMMUNITY</small></div>
+            <span class="role-pill">GAME TESTER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>A Bizarre Arena</h3><span class="activity-pill">GAME TESTING</span></div>
+            <p>Game testing.</p>
+            <a class="project-card__link" href="https://discord.gg/yQXkaQF5J" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--silver">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>M</span><small>COMMUNITY</small></div>
+            <span class="role-pill">JUNIOR MODERATOR</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Magma Jr</h3><span class="activity-pill">MODERATION</span></div>
+            <p>Junior Moderator.</p>
+            <a class="project-card__link" href="https://discord.gg/m2e33Un2c" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--violet">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>P</span><small>COMMUNITY</small></div>
+            <span class="role-pill">LEAD STAFF</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Paradox</h3><span class="activity-pill">STAFF MANAGEMENT</span></div>
+            <p>Lead Staff.</p>
+            <a class="project-card__link" href="https://discord.gg/xhzFw4psk" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--blue">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>S</span><small>COMMUNITY</small></div>
+            <span class="role-pill">JUNIOR MODERATOR</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Stands Battleground</h3><span class="activity-pill">MODERATION</span></div>
+            <p>Junior Moderator.</p>
+            <a class="project-card__link" href="https://discord.gg/ysSJ5weMC" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--silver">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>H</span><small>COMMUNITY</small></div>
+            <span class="role-pill">FORMER MODERATOR</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Hyperions</h3><span class="activity-pill">FORMER STAFF</span></div>
+            <p>Former Moderator.</p>
+            <a class="project-card__link" href="https://discord.gg/8mQb7Qhhe" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--violet">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>L</span><small>COMMUNITY</small></div>
+            <span class="role-pill">BOT MANAGER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Lumina Order Bot</h3><span class="activity-pill">DEVELOPMENT</span></div>
+            <p>Bot Manager.</p>
+            <a class="project-card__link" href="https://discord.gg/epgcys73c" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--blue">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>A</span><small>COMMUNITY</small></div>
+            <span class="role-pill">LEAD DEVELOPER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Tales of Elyris</h3><span class="activity-pill">DEVELOPMENT</span></div>
+            <p>Lead Developer.</p>
+            <a class="project-card__link" href="https://discord.gg/HpVDHVqjM" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--silver">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>G</span><small>COMMUNITY</small></div>
+            <span class="role-pill">DEVELOPER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Grimoire Requiem</h3><span class="activity-pill">DEVELOPMENT</span></div>
+            <p>Developer.</p>
+            <a class="project-card__link" href="https://discord.gg/kY6gQq3zy" target="_blank" rel="noopener noreferrer">Discord invite <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="project-card glass-panel">
+          <div class="project-card__image project-card__image--blue">
+            <img class="project-card__photo" src="" alt="" hidden>
+            <div class="image-placeholder"><span>A</span><small>COMMUNITY</small></div>
+            <span class="role-pill">TRIAL TESTER</span>
+          </div>
+          <div class="project-card__body">
+            <div class="project-card__heading"><h3>Anime Horizon Tower Defence</h3><span class="activity-pill">GAME TESTING</span></div>
+            <p>Trial Tester.</p>
+            <a class="project-card__link" href="https://discord.com/channels/1302630402846097540/1365204177562894336" target="_blank" rel="noopener noreferrer">Open Discord channel <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
+      <div class="carousel-progress" aria-hidden="true"><span id="carousel-progress"></span></div>
+    </section>
+
+    <section class="showcase-section section-shell" id="showcase" aria-labelledby="showcase-title">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__line"></span> SELECTED WORK / ROBLOX</p>
+          <h2 id="showcase-title">A few things <span class="text-gradient">I’ve made.</span></h2>
+          <p class="section-intro">A visual selection from my Roblox work—not the full portfolio. More projects and roles are included below.</p>
+        </div>
+      </div>
+
+      <article class="showcase-feature glass-panel reveal">
+        <figure class="showcase-feature__media">
+          <img src="public/images/roblox-vfx-showcase.png" alt="Roblox scene with vivid magenta and purple visual effects around a character" width="378" height="267" loading="lazy">
+          <figcaption>Roblox visual effects</figcaption>
+        </figure>
+        <div class="showcase-feature__copy">
+          <p class="eyebrow">VISUAL EFFECTS</p>
+          <h3>In-game VFX showcase</h3>
+          <p>A captured example of colorful, in-world effects from my Roblox work.</p>
+        </div>
+      </article>
+
+      <div class="showcase-grid">
+        <article class="showcase-card glass-panel reveal">
+          <video controls playsinline preload="metadata" aria-label="Roblox work screen recording, demo 1">
+            <source src="public/videos/roblox-demo-01.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+          <div class="showcase-card__copy">
+            <p class="eyebrow">SCREEN RECORDING / 01</p>
+            <h3>Project recording 01</h3>
+          </div>
+        </article>
+        <article class="showcase-card glass-panel reveal">
+          <video controls playsinline preload="metadata" aria-label="Roblox work screen recording, demo 2">
+            <source src="public/videos/roblox-demo-02.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+          <div class="showcase-card__copy">
+            <p class="eyebrow">SCREEN RECORDING / 02</p>
+            <h3>Project recording 02</h3>
+          </div>
+        </article>
+        <article class="showcase-card glass-panel reveal">
+          <video controls playsinline preload="metadata" aria-label="Roblox work screen recording, demo 3">
+            <source src="public/videos/roblox-demo-03.mp4" type="video/mp4">
+            Your browser does not support embedded video.
+          </video>
+          <div class="showcase-card__copy">
+            <p class="eyebrow">SCREEN RECORDING / 03</p>
+            <h3>Project recording 03</h3>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cd-projects" id="projects" aria-labelledby="cd-projects-title">
+      <div class="cd-projects-heading reveal">
+        <span class="cd-eyebrow">WHAT I'VE BEEN WORKING ON</span>
+        <h2 id="cd-projects-title">Projects &amp; <span>Communities</span></h2>
+        <p>A collection of games, communities, and projects I've contributed to.</p>
+      </div>
+      <div class="cd-project-grid">
+        <article class="cd-project-card cyan reveal" data-community-project="strikeout-arena">
+          <div class="cd-card-top"><h3>Strikeout Arena</h3><span class="cd-badge">TESTER</span></div>
+          <p>Project details are private at this time.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="strikeout-arena-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="strikeout-arena-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card purple reveal" data-community-project="sora-piece">
+          <div class="cd-card-top"><h3>Sora Piece</h3><span class="cd-badge">QA TEAM &amp; T-MOD</span></div>
+          <p>Anime Roblox project. Active Tester, T-Mod, QA Team member, and Artist's Collector ensuring player feedback is categorized for developers.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="sora-piece-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="sora-piece-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card gold reveal" data-community-project="legacy-piece">
+          <div class="cd-card-top"><h3>Legacy Piece</h3><span class="cd-badge">FORMER STAFF</span></div>
+          <p>Roblox game community. Former Staff.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="legacy-piece-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="legacy-piece-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card pink reveal" data-community-project="rogue-requiem">
+          <div class="cd-card-top"><h3>Rogue Requiem</h3><span class="cd-badge">ADMINISTRATOR</span></div>
+          <p>Project details are still being confirmed.</p>
+          <div class="cd-links"><a href="#" data-community-link="rogue-requiem-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a></div>
+        </article>
+        <article class="cd-project-card cyan reveal" data-community-project="blox-monster">
+          <div class="cd-card-top"><h3>Blox Monster</h3><span class="cd-badge">ASSISTANT MANAGER</span></div>
+          <p>Roblox game community. Working as Assistant Manager.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="blox-monster-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="blox-monster-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card purple reveal" data-community-project="standbound">
+          <div class="cd-card-top"><h3>Standbound</h3><span class="cd-badge">SUPERVISOR</span></div>
+          <p>Incoming game. Working as Supervisor.</p>
+          <div class="cd-links"><a href="#" data-community-link="standbound-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a></div>
+        </article>
+        <article class="cd-project-card purple reveal" data-community-project="monarch-studio">
+          <div class="cd-card-top"><h3>Monarch Studio</h3><span class="cd-badge">ADMINISTRATOR</span></div>
+          <p>Roblox studio that owns the game Rogue Requiem. Contributing as an Administrator.</p>
+        </article>
+        <article class="cd-project-card cyan reveal" data-community-project="arcade-games-bot">
+          <div class="cd-card-top"><h3>Arcade Games Bot</h3><span class="cd-badge">DISCORD BOT</span></div>
+          <p>Custom arcade bot built for casual fun with mini-games. Designed with community safety and privacy in mind.</p>
+        </article>
+        <article class="cd-project-card gold reveal" data-community-project="custom-bot-works">
+          <div class="cd-card-top"><h3>Custom Bot Works</h3><span class="cd-badge">CUSTOM</span></div>
+          <p>Tailor-made Discord bots created for specific Roblox game servers and community management infrastructure.</p>
+        </article>
+        <article class="cd-project-card gold reveal" data-community-project="immortality-incremental">
+          <div class="cd-card-top"><h3>Immortality Incremental</h3><span class="cd-badge">ADMINISTRATOR</span></div>
+          <p>Roblox cultivation clicker game. Contributing as an Administrator, overseeing the Qi-gathering, realm breakthrough, and layer-reset progression systems.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="immortality-incremental-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="immortality-incremental-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card cyan reveal" data-community-project="corrupt-piece">
+          <div class="cd-card-top"><h3>Corrupt Piece</h3><span class="cd-badge">FORMER STAFF</span></div>
+          <p>Previously worked as Bot Developer, Event Host, Balancer, and Concept Artist for the community.</p>
+          <div class="cd-links">
+            <a href="#" data-community-link="corrupt-piece-roblox" hidden target="_blank" rel="noopener noreferrer">◈ Roblox</a>
+            <a href="#" data-community-link="corrupt-piece-discord" hidden target="_blank" rel="noopener noreferrer">☁ Discord</a>
+          </div>
+        </article>
+        <article class="cd-project-card pink reveal" data-community-project="chaos-studios">
+          <div class="cd-card-top"><h3>Chaos Studios</h3><span class="cd-badge">HEAD ADMIN</span></div>
+          <p>Project details are private at this time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="profile-layout section-shell" id="profile" aria-labelledby="profile-title">
+      <div class="profile-overview glass-panel reveal">
+        <p class="eyebrow"><span class="eyebrow__line"></span> A LITTLE ABOUT HOW I WORK</p>
+        <h2 id="profile-title">Profile Overview</h2>
+
+        <div class="profile-item">
+          <span class="profile-icon profile-icon--blue" aria-hidden="true">⚡</span>
+          <p><strong>Clear communication:</strong> I focus on sharing useful feedback and keeping project and community communication clear.</p>
+        </div>
+
+        <div class="profile-item">
+          <span class="profile-icon profile-icon--lavender" aria-hidden="true">👥</span>
+          <p><strong>Team coordination:</strong> My staff and leadership roles involve coordinating teams and supporting consistent standards.</p>
+        </div>
+
+        <div class="profile-item">
+          <span class="profile-icon profile-icon--lavender" aria-hidden="true">↗</span>
+          <p><strong>Adaptable experience:</strong> I work across development, game testing, community support, and creative tasks.</p>
+        </div>
+      </div>
+
+      <aside class="roles-panel glass-panel reveal" aria-labelledby="roles-title">
+        <p class="eyebrow"><span class="eyebrow__line"></span> EXPERIENCE</p>
+        <h3 id="roles-title">ROLES &amp; EXPERIENCE</h3>
+
+        <div class="role-item role-item--lavender"><span aria-hidden="true">🤖</span> Bot Developer</div>
+        <div class="role-item role-item--blue"><span aria-hidden="true">▤</span> Server Manager</div>
+        <div class="role-item role-item--purple"><span aria-hidden="true">♟</span> QA Team</div>
+        <div class="role-item role-item--lavender"><span aria-hidden="true">🛡</span> Moderator</div>
+        <div class="role-item role-item--silver"><span aria-hidden="true">🎨</span> Concept Artist</div>
+        <div class="role-item role-item--blue"><span aria-hidden="true">⚖</span> Balancer</div>
+        <div class="role-item role-item--purple"><span aria-hidden="true">✹</span> Tester</div>
+        <div class="role-item role-item--silver"><span aria-hidden="true">♩</span> Event Host</div>
+      </aside>
+    </section>
+
+    <section class="moderation-section section-shell" id="moderation" aria-labelledby="moderation-title">
+      <header class="moderation-header reveal">
+        <p class="eyebrow"><span class="eyebrow__line"></span> COMMUNITY CARE / 06</p>
+        <h2 id="moderation-title"><span class="mod-shield" aria-hidden="true">⬟</span> Moderation &amp; Community Management</h2>
+        <p>Fostering active, welcoming, and properly managed environments for gaming communities.</p>
+      </header>
+
+      <div class="moderation-grid">
+        <article class="mod-panel glass-panel reveal">
+          <h3>Community Foundations</h3>
+          <ul class="foundation-list">
+            <li>Prioritizing member safety while keeping the community highly engaging.</li>
+            <li>Skilled in resolving conflicts peacefully without immediate escalation.</li>
+            <li>Extensive knowledge of standard Discord permissions and bot configuration.</li>
+            <li>Ensuring strict adherence to Discord's Terms of Service and server-specific rules.</li>
+          </ul>
+        </article>
+
+        <article class="mod-panel glass-panel reveal">
+          <h3>My Approach</h3>
+          <div class="approach-grid">
+            <div class="approach-card approach-card--silver">
+              <h4>☏ Communication First</h4>
+              <p>Relying on warnings and conversation before applying harsh punishments.</p>
+            </div>
+            <div class="approach-card approach-card--lavender">
+              <h4>▤ Consistent Policy</h4>
+              <p>Applying the rules fairly to all members regardless of server status or rank.</p>
+            </div>
+            <div class="approach-card approach-card--blue">
+              <h4>📂 Organized Logging</h4>
+              <p>Maintaining clean moderation histories and ticket logs for team review.</p>
+            </div>
+            <div class="approach-card approach-card--violet">
+              <h4>⚡ Agile Response</h4>
+              <p>Ready to quickly handle sudden raids, spam bots, or large server events.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="detail-grid section-shell">
+      <article class="detail-card glass-panel reveal" id="moderator">
+        <p class="eyebrow">02 / COMMUNITY</p>
+        <div class="detail-card__icon" aria-hidden="true">◈</div>
+        <h2>Moderator</h2>
+        <p>Server management and moderation experience, documented with the responsibilities and communities you choose to share.</p>
+        <ul class="detail-list">
+          <li>Community guidelines &amp; safety</li>
+          <li>Server operations &amp; organization</li>
+          <li>See the project case studies above for role-specific responsibilities.</li>
+        </ul>
+      </article>
+      <article class="detail-card glass-panel reveal" id="bots">
+        <p class="eyebrow">03 / DEVELOPMENT</p>
+        <div class="detail-card__icon" aria-hidden="true">⌘</div>
+        <h2>Bots &amp; systems</h2>
+        <p>A separate Discord bot project is in development. Feature and release details will be added as they are confirmed.</p>
+        <div class="tag-row"><span>IN DEVELOPMENT</span><span>DISCORD</span></div>
+      </article>
+    </section>
+
+    <section class="websites-section section-shell reveal" id="websites" aria-labelledby="websites-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__line"></span> DIGITAL WORLDS / 04</p>
+          <h2 id="websites-title">Websites &amp; <span class="text-gradient">experiments.</span></h2>
+          <p class="section-intro">Public website demos and source links will be featured here when available.</p>
+        </div>
+      </div>
+      <article class="website-placeholder glass-panel">
+        <div class="website-placeholder__art" aria-hidden="true"><span>✧</span><i></i><b></b></div>
+        <div>
+          <span class="eyebrow">WEBSITE PROJECTS</span>
+          <h3>Case studies coming soon</h3>
+          <p>No additional public website demos or source links are available to feature yet.</p>
+        </div>
+        <span class="activity-pill">AWAITING DETAILS</span>
+      </article>
+    </section>
+
+    <section class="about-section section-shell" id="about" aria-labelledby="about-title">
+      <div class="about-card glass-panel reveal">
+        <div class="about-card__avatar" id="profile-picture">
+          <img id="profile-image" alt="Robbie's profile picture" hidden>
+          <span id="profile-fallback" aria-hidden="true">R</span>
+        </div>
+        <div class="about-card__content">
+          <p class="eyebrow">A LITTLE ABOUT ME / 05</p>
+          <h2 id="about-title">Hi, I’m <span class="text-gradient">Robbie.</span></h2>
+          <p class="about-card__role">Developer <span>•</span> Tester <span>•</span> Community Manager</p>
+          <p class="about-card__description">My experience spans Roblox and Discord bot development, quality assurance and bug reporting, staff and community leadership, and creative UI and VFX work.</p>
+          <div class="tag-row"><span>ROBLOX</span><span>DISCORD BOTS</span><span>QA &amp; BUG REPORTING</span><span>COMMUNITY LEADERSHIP</span><span>UI &amp; VFX</span></div>
+          <div class="contact-slot" id="contact-details">
+            <span class="contact-slot__icon" aria-hidden="true">✉</span>
+            <span>Use the contact link to reach me on Discord.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer section-shell">
+    <a class="brand brand--footer" href="#home"><span class="brand__mark" aria-hidden="true">☾</span><span class="brand__name">ROBBIE</span></a>
+    <p>Made beneath the same moon. <span>© <span id="year"></span> Robbie</span></p>
+    <a class="footer__top" href="#home">BACK TO ORBIT ↑</a>
+  </footer>
+</body>
+</html>
