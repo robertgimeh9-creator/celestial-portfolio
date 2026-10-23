@@ -317,13 +317,23 @@ document.addEventListener("DOMContentLoaded", () => {
         dust.appendChild(fragment);
     }
 
-    const revealElements = selectAll(".reveal");
+    const revealElements = selectAll(".reveal, .project-card, .profile-item, .role-item, .approach-card");
+    revealElements.forEach((element) => {
+        element.classList.add("scroll-reveal");
+        const siblings = selectAll(":scope > .scroll-reveal", element.parentElement);
+        const index = Math.max(siblings.indexOf(element), 0);
+        if (element.matches(".profile-item, .role-item")) {
+            element.classList.add(index % 2 === 0 ? "scroll-reveal--left" : "scroll-reveal--right");
+        } else if (element.matches(".project-card, .approach-card")) {
+            element.classList.add("scroll-reveal--scale");
+        }
+    });
     if ("IntersectionObserver" in window && !prefersReducedMotion) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const element = entry.target;
-                    const siblings = selectAll(":scope > .reveal", element.parentElement);
+                    const siblings = selectAll(":scope > .scroll-reveal", element.parentElement);
                     const delay = Math.min(Math.max(siblings.indexOf(element), 0) * 75, 300);
                     element.style.setProperty("--reveal-delay", `${delay}ms`);
                     element.classList.add("is-visible");
@@ -632,6 +642,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const carousel = select("#project-carousel");
     const carouselButtons = selectAll("[data-carousel]");
     const progress = select("#carousel-progress");
+    const carouselAutoplayDelay = 2500;
+    let carouselAutoplayTimer = 0;
+    let carouselResumeTimer = 0;
+    let carouselIsVisible = true;
+    let carouselIsHovered = false;
+    let carouselHasFocus = false;
+    let carouselIsInteracting = false;
+    const canAutoplayCarousel = () =>
+        !prefersReducedMotion &&
+        document.visibilityState === "visible" &&
+        carouselIsVisible &&
+        !carouselIsHovered &&
+        !carouselHasFocus &&
+        !carouselIsInteracting;
+    const scheduleCarouselAutoplay = () => {
+        window.clearTimeout(carouselAutoplayTimer);
+        if (!carousel || !canAutoplayCarousel()) return;
+        carouselAutoplayTimer = window.setTimeout(() => {
+            const firstCard = select(".project-card", carousel);
+            if (!firstCard) return;
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+            if (maxScroll <= 4) return;
+            if (carousel.scrollLeft >= maxScroll - 4) {
+                carousel.scrollTo({
+                    left: 0,
+                    behavior: "smooth"
+                });
+            } else {
+                const gap = Number.parseFloat(getComputedStyle(carousel).columnGap) || 0;
+                carousel.scrollBy({
+                    left: firstCard.getBoundingClientRect().width + gap,
+                    behavior: "smooth"
+                });
+            }
+            scheduleCarouselAutoplay();
+        }, carouselAutoplayDelay);
+    };
+    const pauseCarouselForInteraction = () => {
+        carouselIsInteracting = true;
+        window.clearTimeout(carouselResumeTimer);
+        window.clearTimeout(carouselAutoplayTimer);
+        carouselResumeTimer = window.setTimeout(() => {
+            carouselIsInteracting = false;
+            scheduleCarouselAutoplay();
+        }, 6500);
+    };
     const updateCarousel = () => {
         if (!carousel || !progress) return;
         const maxScroll = carousel.scrollWidth - carousel.clientWidth;
@@ -649,6 +705,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (carousel) {
         carouselButtons.forEach((button) => {
             button.addEventListener("click", () => {
+                pauseCarouselForInteraction();
                 const firstCard = select(".project-card", carousel);
                 if (!firstCard) return;
                 const gap = Number.parseFloat(getComputedStyle(carousel).columnGap) || 0;
@@ -659,9 +716,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         });
+        carousel.addEventListener("mouseenter", () => {
+            carouselIsHovered = true;
+            scheduleCarouselAutoplay();
+        });
+        carousel.addEventListener("mouseleave", () => {
+            carouselIsHovered = false;
+            scheduleCarouselAutoplay();
+        });
+        carousel.addEventListener("focusin", () => {
+            carouselHasFocus = true;
+            scheduleCarouselAutoplay();
+        });
+        carousel.addEventListener("focusout", (event) => {
+            if (event.relatedTarget instanceof Node && carousel.contains(event.relatedTarget)) return;
+            carouselHasFocus = false;
+            scheduleCarouselAutoplay();
+        });
+        carousel.addEventListener("pointerdown", pauseCarouselForInteraction, { passive: true });
+        carousel.addEventListener("pointerup", scheduleCarouselAutoplay, { passive: true });
+        carousel.addEventListener("pointercancel", scheduleCarouselAutoplay, { passive: true });
+        carousel.addEventListener("wheel", pauseCarouselForInteraction, { passive: true });
+        document.addEventListener("visibilitychange", scheduleCarouselAutoplay);
+        if ("IntersectionObserver" in window) {
+            const carouselObserver = new IntersectionObserver(([entry]) => {
+                carouselIsVisible = entry.isIntersecting;
+                scheduleCarouselAutoplay();
+            }, { threshold: 0.1 });
+            carouselObserver.observe(carousel);
+        }
         carousel.addEventListener("scroll", updateCarousel, { passive: true });
         window.addEventListener("resize", updateCarousel);
         updateCarousel();
+        scheduleCarouselAutoplay();
     }
 
     const profileImageSource = PORTFOLIO_CONFIG.profileImage.trim();
