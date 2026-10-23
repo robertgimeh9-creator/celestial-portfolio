@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Fetch public Discord invite counts
+      - name: Fetch public Discord counts and server metadata
         run: node .github/scripts/update-discord-counts.mjs
 
-      - name: Commit refreshed counts
+      - name: Commit refreshed Discord data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

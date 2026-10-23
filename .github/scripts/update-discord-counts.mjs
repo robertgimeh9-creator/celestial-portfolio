@@ -26,6 +26,18 @@ const readExistingCounts = async () => {
     return {};
 };
 
+const readExistingServers = async () => {
+    try {
+        const existing = JSON.parse(await readFile(outputPath, "utf8"));
+        if (existing.servers && typeof existing.servers === "object" && !Array.isArray(existing.servers)) {
+            return existing.servers;
+        }
+    } catch (error) {
+        if (error.code !== "ENOENT") throw error;
+    }
+    return {};
+};
+
 const fetchInvite = async (code) => {
     for (let attempt = 0; attempt < 4; attempt += 1) {
         const response = await fetch(
@@ -44,7 +56,22 @@ const fetchInvite = async (code) => {
         if (!Number.isInteger(memberCount) || memberCount < 0) {
             throw new Error("Discord returned no public member count.");
         }
-        return memberCount;
+        const guildId = invite.guild?.id;
+        const name = invite.guild?.name;
+        const iconHash = invite.guild?.icon;
+        if (typeof guildId !== "string" || !/^\d{17,20}$/.test(guildId) || typeof name !== "string" || !name.trim()) {
+            throw new Error("Discord returned no public server name or ID.");
+        }
+        if (iconHash !== null && iconHash !== undefined && (typeof iconHash !== "string" || !/^(?:a_)?[a-f0-9]+$/i.test(iconHash))) {
+            throw new Error("Discord returned an invalid server icon.");
+        }
+        const iconUrl = iconHash
+            ? `https://cdn.discordapp.com/icons/${guildId}/${iconHash}.${iconHash.startsWith("a_") ? "gif" : "png"}?size=256`
+            : "";
+        return {
+            memberCount,
+            server: { guildId, name: name.trim(), iconHash: iconHash || "", iconUrl, fetchedAt: new Date().toISOString() }
+        };
     }
     throw new Error("Discord rate limit retries were exhausted.");
 };
@@ -58,17 +85,17 @@ if (process.argv.includes("--validate")) {
     console.log(`Validated ${Object.keys(inviteCodes).length} Discord invite codes and ${Object.keys(existingCounts).length} stored counts.`);
 } else {
     const counts = await readExistingCounts();
+    const servers = await readExistingServers();
     let successCount = 0;
     const failures = [];
 
     for (const [name, code] of Object.entries(inviteCodes)) {
         try {
-            counts[name] = {
-                memberCount: await fetchInvite(code),
-                fetchedAt: new Date().toISOString()
-            };
+            const invite = await fetchInvite(code);
+            counts[name] = { memberCount: invite.memberCount, fetchedAt: new Date().toISOString() };
+            servers[code] = invite.server;
             successCount += 1;
-            console.log(`Updated member count for ${name}.`);
+            console.log(`Updated member count, server name, and icon for ${name}.`);
         } catch (error) {
             failures.push(`${name}: ${error.message}`);
             console.warn(`Unable to update ${name}: ${error.message}`);
@@ -80,7 +107,7 @@ if (process.argv.includes("--validate")) {
         throw new Error(`No Discord member counts could be refreshed. ${failures.join("; ")}`);
     }
 
-    await writeFile(outputPath, `${JSON.stringify({ updatedAt: new Date().toISOString(), counts }, null, 2)}\n`);
+    await writeFile(outputPath, `${JSON.stringify({ updatedAt: new Date().toISOString(), counts, servers }, null, 2)}\n`);
     if (failures.length) {
         console.warn(`${successCount} counts updated; ${failures.length} retained their last successful value.`);
     }

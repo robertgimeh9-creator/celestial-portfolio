@@ -595,6 +595,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (ageHours < 24) return `updated ${ageHours}h ago`;
         return `updated ${Math.floor(ageHours / 24)}d ago`;
     };
+    const projectCountKeys = PORTFOLIO_CONFIG.projects.map(({ name }) => name);
+    const projectCards = selectAll(".project-card");
     const loadDiscordMemberCounts = async () => {
         const countElements = selectAll(".project-card__members");
         if (!countElements.length) return;
@@ -608,15 +610,42 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const data = await response.json();
             for (const element of countElements) {
-                const projectName = select("h3", element.closest(".project-card"))?.textContent;
-                const entry = data.counts?.[projectName];
-                const fetchedAt = entry?.fetchedAt ? new Date(entry.fetchedAt) : null;
-                if (!Number.isInteger(entry?.memberCount) || entry.memberCount < 0 || !fetchedAt || Number.isNaN(fetchedAt.getTime())) {
+                const card = element.closest(".project-card");
+                const projectIndex = projectCards.indexOf(card);
+                const project = PORTFOLIO_CONFIG.projects[projectIndex];
+                const countEntry = data.counts?.[projectCountKeys[projectIndex]];
+                const fetchedAt = countEntry?.fetchedAt ? new Date(countEntry.fetchedAt) : null;
+                if (!project) continue;
+
+                const inviteCode = project.invite.match(/(?:discord\.gg\/|discord(?:app)?\.com\/invite\/)([^/?]+)/i)?.[1];
+                const server = inviteCode ? data.servers?.[inviteCode] : null;
+                if (server && typeof server.name === "string" && server.name.trim()) {
+                    project.name = server.name.trim();
+                    const title = select("h3", card);
+                    if (title) title.textContent = project.name;
+                    const image = select(".project-card__photo", card);
+                    if (image && typeof server.iconUrl === "string" && server.iconUrl.startsWith("https://cdn.discordapp.com/icons/")) {
+                        project.serverIcon = server.iconUrl;
+                        image.classList.add("is-server-icon");
+                        image.alt = `${project.name} Discord server icon`;
+                        const imageUrl = new URL(server.iconUrl, document.baseURI).href;
+                        if (image.src !== imageUrl) image.src = imageUrl;
+                        image.hidden = false;
+                    } else if (image && server.iconUrl === "") {
+                        project.serverIcon = "";
+                        image.classList.remove("is-server-icon");
+                        image.alt = project.imageAlt || `${project.name} thumbnail`;
+                        if (project.image) image.src = project.image;
+                        image.hidden = !project.image;
+                    }
+                }
+
+                if (!Number.isInteger(countEntry?.memberCount) || countEntry.memberCount < 0 || !fetchedAt || Number.isNaN(fetchedAt.getTime())) {
                     element.textContent = "Count refresh pending";
                     element.classList.add("is-unavailable");
                     continue;
                 }
-                element.textContent = `${entry.memberCount.toLocaleString()} members · ${formatCountAge(fetchedAt)}`;
+                element.textContent = `${countEntry.memberCount.toLocaleString()} members · ${formatCountAge(fetchedAt)}`;
                 element.title = `Discord invite count last refreshed ${fetchedAt.toLocaleString()}. Counts refresh hourly.`;
                 element.classList.remove("is-unavailable");
                 element.classList.add("is-live");
