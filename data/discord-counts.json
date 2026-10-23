@@ -1,45 +1,45 @@
 {
-  "updatedAt": "2026-10-22T22:22:22.297Z",
+  "updatedAt": "2026-10-23T01:32:17.630Z",
   "counts": {
     "Anime Journey": {
-      "memberCount": 1433,
-      "fetchedAt": "2026-10-22T22:22:05.612Z"
+      "memberCount": 1432,
+      "fetchedAt": "2026-10-23T01:32:00.070Z"
     },
     "A Bizarre Arena": {
-      "memberCount": 34939,
-      "fetchedAt": "2026-10-22T22:22:07.270Z"
+      "memberCount": 34993,
+      "fetchedAt": "2026-10-23T01:32:01.847Z"
     },
     "Magma Jr": {
       "memberCount": 1587,
-      "fetchedAt": "2026-10-22T22:22:08.946Z"
+      "fetchedAt": "2026-10-23T01:32:03.615Z"
     },
     "Paradox": {
       "memberCount": 225,
-      "fetchedAt": "2026-10-22T22:22:10.637Z"
+      "fetchedAt": "2026-10-23T01:32:05.358Z"
     },
     "Stands Battleground": {
-      "memberCount": 4704,
-      "fetchedAt": "2026-10-22T22:22:12.311Z"
+      "memberCount": 4701,
+      "fetchedAt": "2026-10-23T01:32:07.113Z"
     },
     "Hyperions": {
-      "memberCount": 17350,
-      "fetchedAt": "2026-10-22T22:22:14.093Z"
+      "memberCount": 17342,
+      "fetchedAt": "2026-10-23T01:32:08.895Z"
     },
     "Lumina Order Bot": {
       "memberCount": 419,
-      "fetchedAt": "2026-10-22T22:22:15.794Z"
+      "fetchedAt": "2026-10-23T01:32:10.801Z"
     },
     "Tales of Elyris": {
-      "memberCount": 62,
-      "fetchedAt": "2026-10-22T22:22:17.437Z"
+      "memberCount": 64,
+      "fetchedAt": "2026-10-23T01:32:12.513Z"
     },
     "Grimoire Requiem": {
       "memberCount": 121,
-      "fetchedAt": "2026-10-22T22:22:19.134Z"
+      "fetchedAt": "2026-10-23T01:32:14.294Z"
     },
     "Anime Horizon Tower Defence": {
-      "memberCount": 10079,
-      "fetchedAt": "2026-10-22T22:22:20.796Z"
+      "memberCount": 10090,
+      "fetchedAt": "2026-10-23T01:32:16.128Z"
     }
   }
 }
