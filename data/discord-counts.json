@@ -1,45 +1,45 @@
 {
-  "updatedAt": "2026-10-25T06:12:29.070Z",
+  "updatedAt": "2026-10-25T11:31:12.864Z",
   "counts": {
     "Anime Journey": {
       "memberCount": 1435,
-      "fetchedAt": "2026-10-25T06:12:11.406Z"
+      "fetchedAt": "2026-10-25T11:30:55.302Z"
     },
     "A Bizarre Arena": {
-      "memberCount": 36290,
-      "fetchedAt": "2026-10-25T06:12:13.106Z"
+      "memberCount": 36393,
+      "fetchedAt": "2026-10-25T11:30:57.084Z"
     },
     "Magma Jr": {
       "memberCount": 1582,
-      "fetchedAt": "2026-10-25T06:12:14.772Z"
+      "fetchedAt": "2026-10-25T11:30:58.810Z"
     },
     "Paradox": {
-      "memberCount": 248,
-      "fetchedAt": "2026-10-25T06:12:16.464Z"
+      "memberCount": 254,
+      "fetchedAt": "2026-10-25T11:31:00.535Z"
     },
     "Stands Battleground": {
       "memberCount": 4692,
-      "fetchedAt": "2026-10-25T06:12:18.136Z"
+      "fetchedAt": "2026-10-25T11:31:02.361Z"
     },
     "Hyperions": {
-      "memberCount": 17203,
-      "fetchedAt": "2026-10-25T06:12:19.836Z"
+      "memberCount": 17310,
+      "fetchedAt": "2026-10-25T11:31:04.121Z"
     },
     "Lumina Order Bot": {
       "memberCount": 420,
-      "fetchedAt": "2026-10-25T06:12:21.575Z"
+      "fetchedAt": "2026-10-25T11:31:05.902Z"
     },
     "Tales of Elyris": {
       "memberCount": 70,
-      "fetchedAt": "2026-10-25T06:12:24.108Z"
+      "fetchedAt": "2026-10-25T11:31:07.867Z"
     },
     "Grimoire Requiem": {
       "memberCount": 122,
-      "fetchedAt": "2026-10-25T06:12:25.821Z"
+      "fetchedAt": "2026-10-25T11:31:09.670Z"
     },
     "Anime Horizon Tower Defence": {
-      "memberCount": 10937,
-      "fetchedAt": "2026-10-25T06:12:27.568Z"
+      "memberCount": 10985,
+      "fetchedAt": "2026-10-25T11:31:11.363Z"
     }
   },
   "servers": {
@@ -48,70 +48,70 @@
       "name": "Anime Journey",
       "iconHash": "74f862a9a88c908b5a55a544fdbe2e8b",
       "iconUrl": "https://cdn.discordapp.com/icons/1499528357077844180/74f862a9a88c908b5a55a544fdbe2e8b.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:11.406Z"
+      "fetchedAt": "2026-10-25T11:30:55.302Z"
     },
     "yQXkaQF5J": {
       "guildId": "1538011912099467295",
       "name": "A Bizarre Arena",
       "iconHash": "e7468cc8b0ba15bab7884e41c43c9cdc",
       "iconUrl": "https://cdn.discordapp.com/icons/1538011912099467295/e7468cc8b0ba15bab7884e41c43c9cdc.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:13.106Z"
+      "fetchedAt": "2026-10-25T11:30:57.084Z"
     },
     "m2e33Un2c": {
       "guildId": "1398828710588584097",
       "name": "Magma",
       "iconHash": "51a26271e5f130b8ea6397fc410d8dc6",
       "iconUrl": "https://cdn.discordapp.com/icons/1398828710588584097/51a26271e5f130b8ea6397fc410d8dc6.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:14.772Z"
+      "fetchedAt": "2026-10-25T11:30:58.810Z"
     },
     "xhzFw4psk": {
       "guildId": "1500176830349447308",
       "name": "歪 Paradox",
       "iconHash": "ed52bd9d32e2d8a174265b82f27eb912",
       "iconUrl": "https://cdn.discordapp.com/icons/1500176830349447308/ed52bd9d32e2d8a174265b82f27eb912.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:16.464Z"
+      "fetchedAt": "2026-10-25T11:31:00.535Z"
     },
     "ysSJ5weMC": {
       "guildId": "1467076090488029297",
       "name": "Stands Battlegrounds",
       "iconHash": "192deb8373f3c730c495c4f60298e4a0",
       "iconUrl": "https://cdn.discordapp.com/icons/1467076090488029297/192deb8373f3c730c495c4f60298e4a0.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:18.136Z"
+      "fetchedAt": "2026-10-25T11:31:02.361Z"
     },
     "8mQb7Qhhe": {
       "guildId": "1422969507734884374",
       "name": "Hyperions",
       "iconHash": "a_5e08df7df263faf284ce685e3564355f",
       "iconUrl": "https://cdn.discordapp.com/icons/1422969507734884374/a_5e08df7df263faf284ce685e3564355f.gif?size=256",
-      "fetchedAt": "2026-10-25T06:12:19.836Z"
+      "fetchedAt": "2026-10-25T11:31:04.121Z"
     },
     "epgcys73c": {
       "guildId": "1440107554121187452",
       "name": "𝓛𝓾𝓶𝓲𝓷𝓪 𝓞𝓻𝓭𝓮𝓻",
       "iconHash": "a_a22542e301bd6327b94c33360f6a6119",
       "iconUrl": "https://cdn.discordapp.com/icons/1440107554121187452/a_a22542e301bd6327b94c33360f6a6119.gif?size=256",
-      "fetchedAt": "2026-10-25T06:12:21.575Z"
+      "fetchedAt": "2026-10-25T11:31:05.902Z"
     },
     "HpVDHVqjM": {
       "guildId": "1562177498224005182",
       "name": "Tales Of Etheria",
       "iconHash": "78e655d1aedfe7cd19d92e79b992904e",
       "iconUrl": "https://cdn.discordapp.com/icons/1562177498224005182/78e655d1aedfe7cd19d92e79b992904e.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:24.108Z"
+      "fetchedAt": "2026-10-25T11:31:07.867Z"
     },
     "kY6gQq3zy": {
       "guildId": "1544419459153006662",
       "name": "Grimoire Requiem",
       "iconHash": "ae8fa5d3cbb13a7f385a7acb7c7a61fb",
       "iconUrl": "https://cdn.discordapp.com/icons/1544419459153006662/ae8fa5d3cbb13a7f385a7acb7c7a61fb.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:25.821Z"
+      "fetchedAt": "2026-10-25T11:31:09.670Z"
     },
     "CTZFYw6fM": {
       "guildId": "1302630402846097540",
       "name": "Anime  Horizon Tower Defense",
       "iconHash": "8447c355fd0d9327d8f63dcc132d1a65",
       "iconUrl": "https://cdn.discordapp.com/icons/1302630402846097540/8447c355fd0d9327d8f63dcc132d1a65.png?size=256",
-      "fetchedAt": "2026-10-25T06:12:27.568Z"
+      "fetchedAt": "2026-10-25T11:31:11.363Z"
     }
   }
 }
