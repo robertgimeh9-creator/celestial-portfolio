@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T03:16:12.975Z",
+  "updatedAt": "2026-11-20T11:51:11.815Z",
   "counts": {
     "Anime Journey": {
       "memberCount": 1529,
@@ -31,7 +31,7 @@
     },
     "Tales of Elyris": {
       "memberCount": 115,
-      "fetchedAt": "2026-11-20T03:16:07.800Z"
+      "fetchedAt": "2026-11-20T11:51:07.067Z"
     },
     "Grimoire Requiem": {
       "memberCount": 130,
@@ -39,7 +39,7 @@
     },
     "Anime Horizon Tower Defence": {
       "memberCount": 12530,
-      "fetchedAt": "2026-11-20T03:16:11.474Z"
+      "fetchedAt": "2026-11-20T11:51:10.313Z"
     }
   },
   "servers": {
@@ -97,7 +97,7 @@
       "name": "Tales Of Etheria",
       "iconHash": "78e655d1aedfe7cd19d92e79b992904e",
       "iconUrl": "https://cdn.discordapp.com/icons/1562177498224005182/78e655d1aedfe7cd19d92e79b992904e.png?size=256",
-      "fetchedAt": "2026-11-20T03:16:07.800Z"
+      "fetchedAt": "2026-11-20T11:51:07.067Z"
     },
     "kY6gQq3zy": {
       "guildId": "1544419459153006662",
@@ -111,7 +111,7 @@
       "name": "Anime Horizon Tower Defense",
       "iconHash": "8447c355fd0d9327d8f63dcc132d1a65",
       "iconUrl": "https://cdn.discordapp.com/icons/1302630402846097540/8447c355fd0d9327d8f63dcc132d1a65.png?size=256",
-      "fetchedAt": "2026-11-20T03:16:11.474Z"
+      "fetchedAt": "2026-11-20T11:51:10.313Z"
     }
   }
 }
